@@ -65,6 +65,10 @@ class AiTemplate
       timeout: 60
     )
 
+    if response.code != 200
+      puts "Error calling OpenAI GPT-3 API: #{response.code} #{response.body}".red.bold
+    end
+
     hash = JSON.parse(response.body)
 
     # return the first result, stripped for convenience.
