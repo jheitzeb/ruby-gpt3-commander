@@ -27,5 +27,6 @@ Just run `ruby run.rb` and follow the prompts.
 
 It would be pretty awesome if someone who understands Puppeteer better than I do would fix and build up those aspects, to add more functionality. It would be pretty powerful to have the AI be able to fill out forms and such.
 
+It probably won't be long until you run into this: https://www.perimeterx.com/downloads/product-briefs/PerimeterX-Product-Brief-Human-Challenge.pdf
 
 My personal website: https://currentlyobsessed.com/

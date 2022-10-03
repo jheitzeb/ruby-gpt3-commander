@@ -106,6 +106,7 @@ def print_summary_of_session(human_entries:, history:)
   summary_lines << ""
   summary_lines << "Raw AI steps taken:".white.bold
   summary_lines << history_formatted.yellow
+  summary_lines << "" # needed because of a bug in TTY::Box?
   
 
   # Big title font

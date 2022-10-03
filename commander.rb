@@ -82,8 +82,9 @@ class Commander
       link = page.query_selector("a[href='#{link_hash["url"]}']")
       if link.present?
         Commander.click_link(page, link)
+      else
+        Commander.page_command_navigate_to(page, link_hash[:url])
       end
-      #Commander.page_command_navigate_to(page, link_hash[:url])
       return link_hash
     else
       puts "No link found for: #{text}".red
@@ -114,8 +115,6 @@ class Commander
     json_string = ai_template.run(
       params: params
     )
-    puts "json_string:"
-    puts json_string
     return JSON.parse(json_string.strip)
   end
 
