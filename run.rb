@@ -117,8 +117,8 @@ def print_summary_of_session(human_entries:, history:)
   puts TTY::Box.frame(big_title, summary_lines.join("\n"), padding: 1, width: TTY::Screen.width)
 end
 
-def ask(terminal_prompt)
-  print terminal_prompt.white.bold + " <enter response> ".white
+def ask(terminal_prompt, guide)
+  print terminal_prompt.white.bold + " <#{guide}> ".white
   gets.chomp
 end
 
@@ -134,7 +134,7 @@ print_instructions
 
 # remember everything humans enter as we go.
 human_entries = []
-cmd = ask("What do you want to do? <enter a goal>")
+cmd = ask("What do you want to do?", "enter a goal")
 human_entries << cmd if cmd.present?
 
 # The puppeteer session. Note that headless: false means that the browser will be visible.
@@ -144,56 +144,40 @@ Puppeteer.launch(headless: false) do |browser|
   page.set_user_agent(Commander::DEFAULT_USER_AGENT)
 
   if cmd.blank?
-    puts "using default commands".white.bold
-    cmd = [
-      "go to google",
-      "search for best taco restaurant in seattle",
-      "click the best result",
-      "what is the name of the best taco place?",
-      "what are people saying about this place?",
-    ].join('\n')
+    puts "using default command".white.bold
+    cmd = "what is the best omakase sushi experience in NYC?"
     human_entries << cmd
   end
 
   # start a loop to process commands and then ask for more commands
   history = []
-  while (true)
-    # The AI instructions_to_commands translates each line of our human instructions into a 
-    # simple, machine-readable commands that our engine can understand.
-    res = AiTemplate.run!(token: "instructions_to_commands", params: {input: cmd})
-    cmd_list = res.split("\n")
 
-    lines = []
-    lines << "GIVEN:".white.bold
-    lines << cmd.yellow
-    lines << "PERFORM:".white.bold
-    lines << res.yellow
+# The AI instructions_to_commands translates each line of our human instructions into a 
+  # simple, machine-readable commands that our engine can understand.
+  res = AiTemplate.run!(token: "instructions_to_commands", params: {input: cmd})
+  cmd_list = res.split("\n")
+
+  lines = []
+  lines << "GIVEN:".white.bold
+  lines << cmd.yellow
+  lines << "PERFORM:".white.bold
+  lines << res.yellow
+  puts TTY::Box.frame(lines.join("\n"), e, padding: 1, width: TTY::Screen.width)
+
+  # Here's where we run the command.
+  # Sometimes it's helpful to give GPT-3 prompts some context such as the last command and results
+  # In case that helps the AI figure out what to do for the current command. Thus, we pipe those in. 
+  cmd_list.each do |command|
+    result = Commander.run_command_on_page(page: page, command: command, history: history)
+    lines  = []
+    lines << "COMMAND: ".yellow.bold + " " + command.yellow
+    lines << "RESULT: ".white.bold + " " + result.white
+    history << {
+      command: command,
+      result: result
+    }
     puts TTY::Box.frame(lines.join("\n"), e, padding: 1, width: TTY::Screen.width)
-
-    # Here's where we run the command.
-    # Sometimes it's helpful to give GPT-3 prompts some context such as the last command and results
-    # In case that helps the AI figure out what to do for the current command. Thus, we pipe those in. 
-    cmd_list.each do |command|
-      result = Commander.run_command_on_page(page: page, command: command, history: history)
-      lines  = []
-      lines << "COMMAND: ".yellow.bold + " " + command.yellow
-      lines << "RESULT: ".white.bold + " " + result.white
-      history << {
-        command: command,
-        result: result
-      }
-      puts TTY::Box.frame(lines.join("\n"), e, padding: 1, width: TTY::Screen.width)
-    end
-
-    cmd = ""
-    cmd = ask("Now what do you want to do?".white.bold + " <enter blank to end>")
-    human_entries << cmd if cmd.present?
-    if cmd.blank?
-      break
-      exit 1
-    end
   end
-
 
   print_summary_of_session(human_entries: human_entries, history: history)
 

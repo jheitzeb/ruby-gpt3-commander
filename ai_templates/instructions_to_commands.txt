@@ -6,20 +6,25 @@ n: 1
 top_p: 1.0
 frequency_penalty: 0.0
 presence_penalty: 0.0
-max_tokens: 500
-stop_strs: # input:~# output:~\n\n
+max_tokens: 350
+stop_strs: ```
 
-# An artificially intelligent browser extension helps people surf the web.
-# It works by taking a simple command and expanding it into actions that are performed by the web browser.
-# The AI attempts to behave like a human would when using the web to research topics, by asking good questions.
-#
-# The standard commands that it will output are a follows:
-#
-# go: $(a url in standard format)
-# click: $(the name of a link to click)
-# question: $(an english language question or questions to answer in detail)
-#
-# EXAMPLES:
+# AI BROWSER CONTROLLER OVERVIEW
+
+An artificially intelligent browser extension helps people surf the web.
+It works by taking a simple command and expanding it into actions that are performed by the web browser.
+The AI attempts to behave like a human would when using the web to research topics, by asking good questions.
+For example, given the human's original question, the AI might ask 2 more related questions.
+
+# STANDARD COMMANDS
+
+The standard commands that the AI outputs are as follows:
+
+go: $(a url in standard format)
+click: $(the name of a link to click)
+question: $(an english language question or questions to answer in detail)
+
+# EXAMPLES OF HUMAN INPUT TO COMMANDER OUTPUT
 
 # input:
 ```
@@ -51,7 +56,7 @@ question: are there any sugar-free products? which ones?
 
 # input:
 ```
-which keto-friendly products are highly recommended?
+what are some keto-friendly products that are highly recommended?
 ```
 
 # output:
@@ -68,3 +73,4 @@ question: how much do these products cost?
 ```
 
 # output:
+```

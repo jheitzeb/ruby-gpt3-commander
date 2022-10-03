@@ -32,7 +32,6 @@ class AiTemplate
     # call into GPT-3
     open_ai_gtp3_url = "https://api.openai.com/v1/engines/#{self.engine}/completions"
 
-
     stop_strs_array = nil
     stop_strs_array = self.stop_strs.split("~").map {|s| s.gsub("\\n", "\n")} if self.stop_strs.present?
 
@@ -65,6 +64,7 @@ class AiTemplate
       :headers => request_headers,
       timeout: 60
     )
+
     hash = JSON.parse(response.body)
 
     # return the first result, stripped for convenience.
