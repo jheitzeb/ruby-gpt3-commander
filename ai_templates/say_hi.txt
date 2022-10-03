@@ -1,0 +1,12 @@
+name: Say Hi
+description: Given a name, we'll write a short greeting to them.
+temperature:0.7
+engine: text-davinci-002
+n: 1
+top_p: 1
+frequency_penalty: 0.2
+presence_penalty: 0.2
+max_tokens: 500
+stop_strs:\n\n\n\n
+
+Write a short email to {{name}} to say hello to them as if they are a long lost friend.

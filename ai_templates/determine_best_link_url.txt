@@ -1,0 +1,23 @@
+name: Determine Best Link URL
+description: Enter a description of a link on the page and we'll find the url of the best link in the html for it.
+temperature: 0.0
+engine: code-davinci-002
+n: 1
+top_p: 1.0
+frequency_penalty: 0.0
+presence_penalty: 0.0
+max_tokens: 300
+stop_strs: ```
+
+An advanced AI performs automations over a browser session to figure out the best link to click given some raw HTML.
+The command executed was:
+{{history}}
+
+Given the HTML below, find the URL of the link that is most likely to be the best page for "{{description}}" and is not a link to somewhere on google.com.
+The html:
+```
+{{html}}
+```
+Return the result as a valid JSON string like {anchor: "$(the anchor text)", url: "$(the url)"}
+Result:
+```

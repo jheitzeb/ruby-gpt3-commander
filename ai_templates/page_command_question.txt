@@ -1,0 +1,18 @@
+name: Website answer generator 
+description: Enter a website and we'll write the answer to a question about it.
+temperature: 0.0
+engine: text-davinci-002
+n: 1
+top_p: 1.0
+frequency_penalty: 0.0
+presence_penalty: 0.0
+max_tokens: 500
+stop_strs: Question:
+
+Answer a question using the contents of the webpage below, and inferring meaning from element names and css classes and through proximity to other elements on the page. 
+Return a single JSON hash with keys: question, answer
+````
+{{page_content}}
+````
+Question: {{question}}
+Answer:

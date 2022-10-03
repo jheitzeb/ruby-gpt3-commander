@@ -1,0 +1,70 @@
+name: Instructions to Commands
+description: Interpret commands
+temperature: 0.0
+engine: code-davinci-002
+n: 1
+top_p: 1.0
+frequency_penalty: 0.0
+presence_penalty: 0.0
+max_tokens: 500
+stop_strs: # input:~# output:~\n\n
+
+# An artificially intelligent browser extension helps people surf the web.
+# It works by taking a simple command and expanding it into actions that are performed by the web browser.
+# The AI attempts to behave like a human would when using the web to research topics, by asking good questions.
+#
+# The standard commands that it will output are a follows:
+#
+# go: $(a url in standard format)
+# click: $(the name of a link to click)
+# question: $(an english language question or questions to answer in detail)
+#
+# EXAMPLES:
+
+# input:
+```
+start an order for filet mignon on crowd cow
+```
+
+# output:
+go: https://www.crowdcow.com
+search: Filet Mignon
+click: filet mignon
+click: add to cart
+
+# input:
+```
+go to google
+search for instant soup
+click on 'shopping'
+which products are keto-friendly?
+are there any sugar-free products?
+```
+
+# output:
+go: https://www.google.com
+search: instant soup
+click: shopping
+question: which products are keto-friendly?
+question: are there any sugar-free products? which ones?
+
+
+# input:
+```
+which keto-friendly products are highly recommended?
+```
+
+# output:
+go: https://www.google.com
+search: the best keto-friendly products
+click: highly recommended keto-friendly products
+question: which products are listed as highly recommended?
+question: why are these products listed as highly recommended?
+question: how much do these products cost?
+
+# input:
+```
+{{input}}
+```
+
+# output:

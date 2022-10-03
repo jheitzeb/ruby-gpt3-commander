@@ -1,0 +1,15 @@
+name: Answer combiner
+description: Enter a list of answers and we'll combine into one answer
+temperature: 0.0
+engine: text-davinci-002
+n: 1
+top_p: 1.0
+frequency_penalty: 0.0
+presence_penalty: 0.0
+max_tokens: 500
+stop_strs: Question:
+
+Given a question and some answers, combine the answers into one single answer.
+Question: {{question}}
+Answers: {{answers}}
+Combined answer:

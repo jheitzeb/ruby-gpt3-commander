@@ -1,0 +1,22 @@
+name: Summarize Session
+description: Given the raw command + results of an automated AI browser session, summarize for humans what happened.
+temperature: 0.2
+engine: text-davinci-001
+n: 1
+top_p: 1.0
+frequency_penalty: 0.1
+presence_penalty: 0.1
+max_tokens: 300
+stop_strs:
+
+An artificially intelligent browser extension helps people surf the web.
+It works by taking a simple command and expanding it into actions that are performed by the web browser.
+The AI attempts to behave like a human would when using the web to research topics, by asking good questions.
+
+Original command: 
+{{human_entries}}
+
+Expanded commands and results:
+{{history}}
+
+State the result that the AI found, and explain in detail why the result is valid (or not) and explain in English how it arrived at this result.
